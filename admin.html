@@ -51,13 +51,10 @@
         <h1>Admin Page</h1>
         <p class="lead">Book Listings And Categories</p>
         <p class="lead">Add New book</p>
-        <table class="table table-bordered">
-        <tr>
-        <th>Title<th/>
-        <th>Categories<th/>
-        </tr>
-  ...
-</table>
+        {% for item in books %}
+        {{ item.rep_title}} | {{item.category}} <br \>
+        {%endfor%}
+        
       </div>
 
       
