@@ -15,11 +15,11 @@ def admin():
     cur = g.db.execute('select rep_title,category from reps')
     books = [dict(rep_title=row[0],category=row[1]) for row in cur.fetchall()]
     g.db.close()
-    return render_template('admin.html',)
+    return render_template('admin.html',books=books)
     
 @app.route('/userlogin')
 def userlogin():
-error = None
+    error = None
     if request.method == 'POST':
         if request.form['email'] == 'mukosh@yahoo.com' or request.form['password']== 'admin':
             return redirect (url_for('users'))
@@ -31,14 +31,25 @@ def users():
     cur = g.db.execute('select rep_title,category from reps')
     books = [dict(rep_title=row[0],category=row[1]) for row in cur.fetchall()]
     g.db.close()
-    return render_template('users.html')
+    return render_template('users.html',books=books)
+    
+@app.route('/borrow')
+def borrow():
+    if request.method == 'POST':
+        if request.form['book']:
+            g.db = connect_db()
+            cur = g.db.execute('select rep_title,category from reps')    
+            books = [dict(rep_title=row[0],category=row[1]) for row in cur.fetchall()]
+            g.db.close()
+            return redirect('borrow.html',books=books)    
+
 
 @app.route('/',methods=['GET','POST'])
 def login():
     error = None
     if request.method == 'POST':
         if request.form['email'] != 'mukosh@yahoo.com' or request.form['password']!= 'admin':
-        error = 'Invalid credentials .please try again'
+            error = 'Invalid credentials .please try again'
         else:
             return redirect (url_for('admin'))
         
