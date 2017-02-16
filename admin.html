@@ -49,10 +49,14 @@
 
       <div class="jumbotron">
         <h1>Admin Page</h1>
-        <p class="lead">Book Listings And Categories</p>
-        <p class="lead">Add New book</p>
+        
+        <p class="lead">Add New book:</p>
+        <input type="text" class="form-control" placeholder="Text input">
+        <h3>Book Listings and Categories:</h3>
         {% for item in books %}
-        {{ item.rep_title}} | {{item.category}} <br \>
+        <strong>Title:</strong>{{ item.rep_title}} <br>
+        <strong>Categorie</strong>{{item.category}} <br>
+        <br>
         {%endfor%}
         
       </div>
@@ -60,7 +64,7 @@
       
 
       <footer class="footer">
-        <p>&copy; 2016 Company, Inc.</p>
+        <p>&copy; 2017 Company, Inc.</p>
       </footer>
 
     </div> <!-- /container -->

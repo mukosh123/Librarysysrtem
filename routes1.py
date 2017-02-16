@@ -15,20 +15,33 @@ def admin():
     cur = g.db.execute('select rep_title,category from reps')
     books = [dict(rep_title=row[0],category=row[1]) for row in cur.fetchall()]
     g.db.close()
-    return render_template('admin.html', books=books)
+    return render_template('admin.html',)
+    
+@app.route('/userlogin')
+def userlogin():
+error = None
+    if request.method == 'POST':
+        if request.form['email'] == 'mukosh@yahoo.com' or request.form['password']== 'admin':
+            return redirect (url_for('users'))
+    return render_template('userlogin.html')
 
 @app.route('/users')
 def users():
+    g.db = connect_db()
+    cur = g.db.execute('select rep_title,category from reps')
+    books = [dict(rep_title=row[0],category=row[1]) for row in cur.fetchall()]
+    g.db.close()
     return render_template('users.html')
 
 @app.route('/',methods=['GET','POST'])
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['email'] == 'mukosh@yahoo.com' or request.form['password']== 'admin':
-            return redirect (url_for('admin'))
+        if request.form['email'] != 'mukosh@yahoo.com' or request.form['password']!= 'admin':
+        error = 'Invalid credentials .please try again'
         else:
-            return redirect (url_for('users'))
+            return redirect (url_for('admin'))
+        
     return render_template('login.html')
    
 if __name__== '__main__':
