@@ -41,7 +41,7 @@ def borrow():
             cur = g.db.execute('select rep_title,category from reps')    
             books = [dict(rep_title=row[0],category=row[1]) for row in cur.fetchall()]
             g.db.close()
-            return redirect('borrow.html',books=books)    
+            return render_template('borrow.html',books=books)    
 
 
 @app.route('/',methods=['GET','POST'])
